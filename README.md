@@ -9,3 +9,7 @@
 - You write a failing test first
 - Then you write some code to get it passing
 - Then you go back and optimize the code
+
+### Install these
+
+- npm install --save-dev cross-env

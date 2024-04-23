@@ -7,9 +7,8 @@ const { info } = require('./utils/logger');
 const { requestLogger } = require('./utils/middleware');
 
 // Connect to the MongoDB database
-mongoose.connect(config.MONGODB_URI, {
-  dbName: "Backend",
-})
+console.log('Connecting to MongoDB:', config.MONGODB_URI);
+mongoose.connect(config.MONGODB_URI)
   .then(() => {
     info('Connected to MongoDB');
   })
