@@ -13,3 +13,4 @@
 ### Install these
 
 - npm install --save-dev cross-env
+- npm install --save-dev supertest
