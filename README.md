@@ -10,6 +10,13 @@
 - Then you write some code to get it passing
 - Then you go back and optimize the code
 
+#### Commands
+
+- The following command only runs the tests found in the tests/note_api.test.js file:
+  "npm test -- tests/note_api.test.js"
+- The --tests-by-name-pattern option can be used for running tests with a specific name:
+  "npm test -- --test-name-pattern='pattern' "
+
 ### Install these
 
 - npm install --save-dev cross-env
