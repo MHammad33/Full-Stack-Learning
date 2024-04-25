@@ -12,6 +12,21 @@ router.get('/', (req, res) => {
     });
 })
 
+router.get('/:id', (req, res) => {
+  Blog
+    .findById(req.params.id)
+    .then(blog => {
+      if (blog) {
+        res.json(blog);
+      } else {
+        res.status(404).end();
+      }
+    })
+    .catch(error => {
+      console.log("Error fetching blog: ", error);
+    });
+})
+
 router.post('/', (req, res) => {
   console.log(req.body);
 
@@ -29,6 +44,17 @@ router.post('/', (req, res) => {
     })
     .catch(error => {
       console.log("Error saving blog: ", error);
+    });
+})
+
+router.delete('/:id', (req, res) => {
+  Blog
+    .findByIdAndDelete(req.params.id)
+    .then(() => {
+      res.status(204).end();
+    })
+    .catch(error => {
+      console.log("Error deleting blog: ", error);
     });
 })
 

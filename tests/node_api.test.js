@@ -79,6 +79,34 @@ test("blog without title is not added", async () => {
 
 })
 
+test("a specific blog can be viewed", async () => {
+  const blogsAtStart = await helper.blogsInDb();
+  const blogToView = blogsAtStart[0];
+
+  const resultBlog = await api
+    .get(`/api/blogs/${blogToView.id}`)
+    .expect(200)
+    .expect("Content-Type", /application\/json/);
+
+  const processedBlogToView = JSON.parse(JSON.stringify(blogToView));
+  assert.deepStrictEqual(resultBlog.body, processedBlogToView);
+})
+
+test("a blog can be deleted", async () => {
+  const blogsAtStart = await helper.blogsInDb();
+  const blogToDelete = blogsAtStart[0];
+
+  await api
+    .delete(`/api/blogs/${blogToDelete.id}`)
+    .expect(204);
+
+  const blogsAtEnd = await helper.blogsInDb();
+  assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length - 1);
+
+  const titles = blogsAtEnd.map(blog => blog.title);
+  assert(!titles.includes(blogToDelete.title));
+})
+
 after(() => {
   mongoose.connection.close();
 })
