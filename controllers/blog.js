@@ -14,6 +14,13 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
   console.log(req.body);
+
+  if (!req.body.title || !req.body.url) {
+    return res.status(400).json({
+      error: "Title or URL missing"
+    });
+  }
+
   const blog = new Blog(req.body);
   blog
     .save()
