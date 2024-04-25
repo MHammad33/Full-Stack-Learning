@@ -32,7 +32,7 @@ test("all blogs are returned", async () => {
 
 test("there are two blogs", async () => {
   const response = await api.get("/api/blogs");
-  assert.strictEqual(response.body.length, blogs.length);
+  assert.strictEqual(response.body.length, helper.initialBlogs.length);
 })
 
 test("the first blog is about Statement Harmful", async () => {
