@@ -8,17 +8,25 @@ const Blog = require("../models/blog");
 
 const api = supertest(app);
 
-// Delete previous blogs and add new ones
+
+/**
+ * @dev Before each test, the database is cleared and two blogs are added to it.
+ * @notice The initial blogs are added to the database using the Blog model.
+*/
 beforeEach(async () => {
   await Blog.deleteMany({});
-  let blogObject = new Blog(helper.initialBlogs[0]);
-  await blogObject.save();
-  blogObject = new Blog(helper.initialBlogs[1]);
-  await blogObject.save();
+
+  // @notice Promise array is created to save all the blogs in the database.
+  const blogObjects = helper.initialBlogs.map(blog => new Blog(blog));
+  const promiseArray = blogObjects.map(blog => blog.save());
+
+  // @notice Promise array is resolved to save all the blogs in the database. 
+  await Promise.all(promiseArray);
 });
 
 
 test("blogs are returned as json", async () => {
+  console.log("test started");
   await api
     .get("/api/blogs")
     .expect(200)
@@ -26,6 +34,7 @@ test("blogs are returned as json", async () => {
 })
 
 test("all blogs are returned", async () => {
+  console.log("test started");
   const response = await api.get("/api/blogs");
   assert.strictEqual(response.body.length, helper.initialBlogs.length);
 })
