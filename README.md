@@ -20,7 +20,7 @@
 ### Install these
 
 - npm install --save-dev cross-env
-- npm install --save-dev supertest
+- npm install --save-dev supertest (Act as router given to it as argument like: api = supertest(app) // app is main router )
 
 - npm install express-async-errors
 
