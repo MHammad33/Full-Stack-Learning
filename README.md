@@ -1,3 +1,7 @@
+# Project Structure
+
+![alt text](image.png)
+
 # Learnings
 
 ## Backend
